@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    ports:
+      - '3000:3306'
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: secret_password
+      MYSQL_DATABASE: wheater_api
+      MYSQL_USER: user_name
+      MYSQL_PASSWORD: user_password
