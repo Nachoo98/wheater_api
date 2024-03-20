@@ -1,17 +1,17 @@
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
+import { config } from 'dotenv';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
-export default TypeOrmModule.forRoot({
+config();
+
+export default new DataSource({
   type: 'mysql',
   host: process.env.MYSQL_HOST,
   port: +process.env.MYSQL_PORT,
   username: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
-  autoLoadEntities: true,
-  synchronize: process.env.MYSQL_DATABASE === 'true',
-  dropSchema: process.env.MYSQL_DATABASE === 'true',
+  entities: ['src/modules/**/*.entity.{ts,js}'],
   namingStrategy: new SnakeNamingStrategy(),
   migrations: ['src/database/migrations/**/*.{ts,js}'],
-  legacySpatialSupport: false,
 });
